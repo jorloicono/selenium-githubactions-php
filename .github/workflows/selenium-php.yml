@@ -38,7 +38,7 @@ jobs:
         
         echo "Descargando ChromeDriver..."
         # URL genérica para descargar drivers de prueba de Google
-        wget -q "https://storage.googleapis.com/chrome-for-testing-public/127.0.6533.72/linux64/chromedriver-linux64.zip" -O chromedriver.zip
+        wget -q "https://storage.googleapis.com/chrome-for-testing-public/143.0.7499.169/linux64/chromedriver-linux64.zip" -O chromedriver.zip
         unzip chromedriver.zip
         
         echo "Iniciando ChromeDriver en puerto 4444..."
