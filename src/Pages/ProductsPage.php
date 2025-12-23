@@ -1,4 +1,4 @@
-<? php
+<?php
 namespace SauceDemo\Pages;
 
 use Facebook\WebDriver\WebDriver;
