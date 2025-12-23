@@ -1,0 +1,18 @@
+{
+    "name": "laboratorio/saucedemo-php-ci",
+    "description": "Automatización de SauceDemo portada a PHP",
+    "require-dev": {
+        "php-webdriver/webdriver": "^1.14",
+        "phpunit/phpunit": "^10.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "SauceDemo\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "SauceDemo\\Tests\\": "tests/"
+        }
+    }
+}
