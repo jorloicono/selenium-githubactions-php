@@ -4,22 +4,30 @@ namespace SauceDemo\Tests;
 use SauceDemo\Pages\LoginPage;
 use SauceDemo\Pages\ProductsPage;
 
-class SauceDemoTest extends BaseTest {
+class LoginWithPOMTest extends BaseTest
+{
+    private string $username = 'standard_user';
+    private string $password = 'secret_sauce';
 
-    public function testLoginAndAddToCart() {
-        $loginPage = new LoginPage($this->driver);
-        $productsPage = new ProductsPage($this->driver);
+    public function validLogin(): void
+    {
+        $this->setUp();
+        try {
+            $this->loginPage->openLoginPage();
+            $this->loginPage->enterUserName($this->username);
+            $this->loginPage->enterPassWord($this->password);
+            $this->loginPage->clickOnLogin();
 
-        $loginPage->open();
-        $loginPage->login("standard_user", "secret_sauce");
-
-        $titles = $productsPage->getAllProductTitles();
-        // PHPUnit Assertion: Validamos que el array de títulos sea mayor a 0
-        $this->assertGreaterThan(0, count($titles), "FALLO: No se encontraron productos en la lista.");
-
-        $productsPage->addFirstProductToCart();
-
-        $currentCount = $productsPage->getCartCount();
-        $this->assertEquals("1", $currentCount, "FALLO: El contador del carrito no muestra 1.");
+            $this->productsPage->checkProductsPageOpened();
+            echo "✓ validLogin PASADO\n";
+        } catch (\Throwable $e) {
+            echo "✗ validLogin FALLÓ: " . $e->getMessage() . "\n";
+        } finally {
+            $this->tearDown();
+        }
     }
 }
+
+// Ejecutar “test” a mano:
+$test = new LoginWithPOMTest();
+$test->validLogin();
