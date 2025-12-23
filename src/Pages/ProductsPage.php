@@ -1,8 +1,10 @@
-<?php
+<? php
 namespace SauceDemo\Pages;
 
 use Facebook\WebDriver\WebDriver;
 use Facebook\WebDriver\WebDriverBy;
+use Facebook\WebDriver\WebDriverWait;
+use Facebook\WebDriver\WebDriverExpectedCondition;
 
 class ProductsPage {
     private $driver;
@@ -14,7 +16,7 @@ class ProductsPage {
         $this->driver = $driver;
         $this->productTitles = WebDriverBy::className("inventory_item_name");      
         $this->addToCartButton = WebDriverBy::xpath("(//button[contains(@id,'add-to-cart')])[1]");
-        $this->cartBadge = WebDriverBy::className("shopping_cart_badge");
+        $this->cartBadge = WebDriverBy:: className("shopping_cart_badge");
     }
 
     // Obtener lista de textos de todos los productos
@@ -31,6 +33,12 @@ class ProductsPage {
     }
 
     public function getCartCount() {
-        return $this->driver->findElement($this->cartBadge)->getText();
+        // Esperar hasta que el badge del carrito sea visible (máximo 10 segundos)
+        $wait = new WebDriverWait($this->driver, 10);
+        $cartBadgeElement = $wait->until(
+            WebDriverExpectedCondition::visibilityOfElementLocated($this->cartBadge)
+        );
+        
+        return $cartBadgeElement->getText();
     }
 }
